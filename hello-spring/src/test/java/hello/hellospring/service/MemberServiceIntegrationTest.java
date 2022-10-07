@@ -1,30 +1,23 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
-import hello.hellospring.repository.MemoryMemberRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import hello.hellospring.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MemberServiceTest {
+@SpringBootTest
+@Transactional // test를 시작할때 트랜잭션을 먼저 실행을하고 DB에 데이터를 인서트 쿼리로 다 넣고 테스트가 끝나면 rollback을 해줌
+class MemberServiceIntegrationTest {
 
-    MemberService memberService;
-    MemoryMemberRepository memberRepository;
-
-    @BeforeEach
-    public void beforeEach() {
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository);
-    } // dependencyInjection 최고의 설명...
-
-    @AfterEach // 단위 테스트가 끝날때마다 초기화
-    public void afterEach() {
-        memberRepository.clearStore();
-    }
-
+    @Autowired
+    MemberService memberService; // TestCase는 필드기반으로 Autowired 받아도 무방
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     void join() {
@@ -64,13 +57,5 @@ class MemberServiceTest {
 
 
         // then
-    }
-
-    @Test
-    void findMembers() {
-    }
-
-    @Test
-    void findOne() {
     }
 }
