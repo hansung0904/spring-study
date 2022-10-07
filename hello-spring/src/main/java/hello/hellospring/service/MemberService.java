@@ -2,11 +2,12 @@ package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -19,10 +20,13 @@ public class MemberService {
      * 회원가입
      */
     public long join(Member member) {
-        // 같은 이름이 있는 중복회원 가입 x
+
+
         validateDuplicateMember(member); // 중복회원검증
         memberRepository.save(member);
         return member.getId();
+
+        // 같은 이름이 있는 중복회원 가입 x
     }
 
     private void validateDuplicateMember(Member member) {
