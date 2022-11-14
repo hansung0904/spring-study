@@ -8,8 +8,15 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @SpringBootApplication
 public class ServletApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ServletApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ServletApplication.class, args);
+    }
 
+    /*
+    SpringBoot가 알아서 이걸 해줌.
+    @Bean
+    InternalResourceViewResolver internalResourceViewResolver() {
+        return new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
+    }
+    */
 }
